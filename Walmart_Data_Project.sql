@@ -137,16 +137,89 @@ ORDER BY count_of_pl DESC;
 -- What is the average rating of each product line?
  SELECT
 	product_line,
-    AVG(rating) AS avg_rating
+    ROUND(AVG(rating), 2) AS avg_rating
 FROM sales
 GROUP BY product_line
 ORDER BY avg_rating DESC;
 	
+-- Number of sales made in each time of the day per weekday
+SELECT
+	time_of_day,
+    COUNT(*) AS number_of_sales
+FROM sales
+GROUP BY time_of_day;
 
+-- Which of the customer types brings the most revenue?
+SELECT DISTINCT customer_type FROM sales;
 
+SELECT
+	customer_type,
+    SUM(total) AS total_revenue
+FROM SALES
+GROUP BY customer_type
+ORDER BY total_revenue DESC;
 
+-- Which city has the largest tax percent/ VAT (Value Added Tax)?
+SELECT 
+	city,
+    ROUND(AVG(VAT), 2) AS avg_VAT
+FROM sales
+GROUP BY city
+ORDER BY avg_VAT DESC;
 
+-- Which customer type pays the most in VAT?
+SELECT
+	customer_type,
+    ROUND(AVG(VAT), 2) AS avg_VAT
+FROM sales
+GROUP BY customer_type
+ORDER BY avg_VAT DESC;
 
+-- How many unique customer types does the data have?
+SELECT COUNT(DISTINCT customer_type) AS unique_customers FROM sales;
+
+-- How many unique payment methods does the data have?
+SELECT COUNT(DISTINCT payment_method) AS unique_payment_methods FROM sales;
+
+-- What is the most common customer type?
+SELECT
+	customer_type,
+    COUNT(customer_type) AS count_customer_types
+FROM sales
+GROUP BY customer_type
+ORDER BY count_customer_types DESC;
+
+-- Which customer type buys the most?
+SELECT
+	customer_type,
+    COUNT(customer_type) AS customers_count
+FROM sales
+GROUP BY customer_type
+ORDER BY customers_count DESC;
+
+-- What is the gender of most of the customers?
+SELECT
+	gender,
+    COUNT(*) AS total_customers
+FROM sales
+GROUP BY gender
+ORDER BY total_customers DESC;
+
+-- Which time of the day do customers give bigger ratings?
+SELECT 
+	time_of_day,
+    ROUND(AVG(rating), 2) AS avg_rating
+FROM sales
+GROUP BY time_of_day
+ORDER BY avg_rating DESC;
+
+-- Which day fo the week has the best avg ratings?
+SELECT
+	day_name,
+	ROUND(AVG(rating), 2) AS avg_rating 
+FROM sales
+GROUP BY day_name
+ORDER BY avg_rating DESC;
 
 
 
